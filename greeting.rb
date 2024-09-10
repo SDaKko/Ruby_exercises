@@ -16,4 +16,10 @@ else
 			puts "Удачный выбор."
 		end
 	end
+	puts "Введите команду языка Ruby"
+	command_rb = STDIN.gets.chomp
+	eval command_rb
+	puts "Введите команду ОС"
+	command_os = STDIN.gets.chomp
+	system command_os
 end
