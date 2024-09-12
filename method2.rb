@@ -18,5 +18,5 @@ def not_div_on_five_mult(num)
 end
 
 puts "Введите число: "
-num = gets.chomp.to_i.abs
+num = gets.to_i.abs
 puts "Произведение цифр числа, не делящихся на пять, равно #{not_div_on_five_mult(num)}"
