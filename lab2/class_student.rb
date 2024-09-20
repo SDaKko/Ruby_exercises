@@ -56,15 +56,18 @@ class Student
 	end
 
 	def initialize(surname, name, patronymic, id = nil, phone = nil, tg = nil, email = nil, git = nil)
-    @id = id
-    @surname = surname
-    @name = name
-    @patronymic = patronymic
-    @phone = phone
-    @tg = tg
-    @email = email
-    @git = git
-  end
+		@id = id
+		@surname = surname
+		@name = name
+		@patronymic = patronymic
+		@phone = phone
+		@tg = tg
+		@email = email
+		@git = git
+	end
 
+	def to_s
+    	"id = #{@id}, surname = #{@surname}, name = #{@name}, patronymic = #{@patronymic}, phone = #{@phone}, tg = #{@tg}, email = #{@email}, git = #{@git}"
+ 	end
 
 end
