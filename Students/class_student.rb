@@ -6,6 +6,9 @@ class Student
 		@surname = surname
 		@name = name
 		@patronymic = patronymic
+		if phone && !Student.valid_phone_number?(phone)
+    		raise ArgumentError, "Неверный формат номера телефона: #{phone}"
+   		end
 		@phone = phone
 		@tg = tg
 		@email = email
@@ -20,6 +23,10 @@ class Student
 		str += ", email = #{@email}" if @email
 		str += ", git = #{@git}" if @git
 		return str
+	end
+
+	def self.valid_phone_number?(phone_number)
+		return phone_number.match(/^\+7\d{10}$/)
 	end
 
 end
