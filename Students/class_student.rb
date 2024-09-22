@@ -7,7 +7,7 @@ class Student
 		@name = name
 		@patronymic = patronymic
 		if phone && !Student.valid_phone_number?(phone)
-    		raise ArgumentError, "Неверный формат номера телефона: #{phone}"
+			raise ArgumentError, "Неверный формат номера телефона: #{phone}"
    		end
 		@phone = phone
 		@tg = tg
@@ -26,23 +26,42 @@ class Student
 	end
 
 	def self.valid_phone_number?(phone_number)
-		return phone_number.match(/^\+7\d{10}$/)
+		if phone_number == nil
+			return false
+		end
+		return phone_number.match?(/^\+7\d{10}$/)
 	end
 
 	def self.valid_tg?(tg)
-		return tg.match(/^\@[a-zA-Z0-9_]{5,32}$/)
+		if tg == nil
+			return false
+		end
+		return tg.match?(/^\@[a-zA-Z0-9_]{5,32}$/)
 	end
 
 	def self.valid_email?(email)
+		if email == nil
+			return false
+		end
 		return email.match?(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z_-]+$/)
 	end
 
 	def self.valid_git?(git)
+		if git == nil
+			return false
+		end
 		return git.match?(/^(https:\/\/)?github.com\/[a-zA-Z0-9_-]+$/)
 	end
 
 	def self.valid_id?(id)
+		if id == nil
+			return false
+		end
 		return id.match?(/^[0-9]+$/)
 	end
-	
+
+	def validate()
+		return Student.valid_git?(@git) && (Student.valid_phone_number?(@phone) || Student.valid_tg?(@tg) || Student.valid_email?(@email))
+	end
+
 end
