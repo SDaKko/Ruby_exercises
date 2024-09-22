@@ -29,4 +29,20 @@ class Student
 		return phone_number.match(/^\+7\d{10}$/)
 	end
 
+	def self.valid_tg?(tg)
+		return tg.match(/^\@[a-zA-Z0-9_]{5,32}$/)
+	end
+
+	def self.valid_email?(email)
+		return email.match?(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z_-]+$/)
+	end
+
+	def self.valid_git?(git)
+		return git.match?(/^(https:\/\/)?github.com\/[a-zA-Z0-9_-]+$/)
+	end
+
+	def self.valid_id?(id)
+		return id.match?(/^[0-9]+$/)
+	end
+	
 end
