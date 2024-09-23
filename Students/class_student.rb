@@ -1,5 +1,6 @@
 class Student
-	attr_accessor :name, :surname, :patronymic, :id, :number, :tg, :email, :git
+	attr_accessor :name, :surname, :patronymic, :id
+	attr_reader :phone, :tg, :email, :git
 
 	def initialize(surname:, name:, patronymic:, id: nil, phone: nil, tg: nil, email: nil, git: nil)
 		@id = id
@@ -62,6 +63,18 @@ class Student
 
 	def validate()
 		return Student.valid_git?(@git) && (Student.valid_phone_number?(@phone) || Student.valid_tg?(@tg) || Student.valid_email?(@email))
+	end
+
+	def set_contacts(phone: nil, tg: nil, email: nil)
+		if Student.valid_phone_number?(phone)
+			@phone = phone
+		end
+		if Student.valid_tg?(tg)
+			@tg = tg
+		end
+		if Student.valid_email?(email)
+			@email = email
+		end
 	end
 
 end
