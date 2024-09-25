@@ -77,4 +77,20 @@ class Student
 		end
 	end
 
+	def get_info
+		str = "ФИО = #{@surname} #{@name[0]}. #{patronymic[0]}."
+		if @git
+			str += ", git = #{git}"
+		end
+		contact = ""
+		if @phone
+			contact += ", phone = #{@phone}"
+		elsif @email
+			contact += ", email = #{@email}"
+		elsif @tg
+			contact += ", tg = #{@tg}"
+		end
+		str += contact
+		return str
+	end
 end
