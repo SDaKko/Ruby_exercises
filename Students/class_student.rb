@@ -1,6 +1,6 @@
 class Student
 	attr_accessor :name, :surname, :patronymic, :id
-	attr_reader :phone, :tg, :email, :git
+	attr_reader :phone, :tg, :email, :git, :surname_inits, :contact
 
 	def initialize(surname:, name:, patronymic:, id: nil, phone: nil, tg: nil, email: nil, git: nil)
 		@id = id
@@ -78,19 +78,37 @@ class Student
 	end
 
 	def get_info
-		str = "ФИО = #{@surname} #{@name[0]}. #{patronymic[0]}."
+		@surname_inits = "#{@surname} #{@name[0]}. #{patronymic[0]}."
+		str = "ФИО = #{surname_inits}"
 		if @git
 			str += ", git = #{git}"
 		end
 		contact = ""
 		if @phone
 			contact += ", phone = #{@phone}"
+			@contact = @phone
 		elsif @email
 			contact += ", email = #{@email}"
+			@contact = @email
 		elsif @tg
 			contact += ", tg = #{@tg}"
+			@contact = @tg
 		end
 		str += contact
 		return str
 	end
+end
+
+
+
+class Student_short
+	attr_reader :id, :surname_inits, :git, :contact 
+
+	def initialize(student)
+		@id = student.id
+		@surname_inits = student.surname_inits
+		@git = student.git
+		@contact = student.contact
+	end
+
 end
