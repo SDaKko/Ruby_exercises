@@ -3,13 +3,25 @@ class Student
 	attr_reader :phone, :tg, :email, :git, :surname_inits, :contact
 
 	def initialize(surname:, name:, patronymic:, id: nil, phone: nil, tg: nil, email: nil, git: nil)
-		@id = id
-		@surname = surname
-		@name = name
-		@patronymic = patronymic
+		if id && !Student.valid_id?(id)
+			raise ArgumentError, "Неверный формат id: #{id}"
+   		end
 		if phone && !Student.valid_phone_number?(phone)
 			raise ArgumentError, "Неверный формат номера телефона: #{phone}"
    		end
+   		if tg && !Student.valid_tg?(tg)
+			raise ArgumentError, "Неверный формат адреса телеграм: #{tg}"
+   		end
+   		if email && !Student.valid_email?(email)
+			raise ArgumentError, "Неверный формат адреса электронной почты: #{email}"
+   		end
+   		if git && !Student.valid_git?(git)
+			raise ArgumentError, "Неверный формат git: #{git}"
+   		end
+   		@id = id
+		@surname = surname
+		@name = name
+		@patronymic = patronymic
 		@phone = phone
 		@tg = tg
 		@email = email
