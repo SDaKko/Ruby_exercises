@@ -13,3 +13,7 @@ end
 students[0].set_contacts(phone: "+77777777777")
 puts students[0].phone
 puts students[0].get_info
+puts students[0].surname_inits
+st_short = Student_short.new(id: 1, info: students[0].get_info)
+puts st_short.surname_inits
+puts st_short.contact
