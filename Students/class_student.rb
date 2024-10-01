@@ -206,4 +206,16 @@ class Student_short < Main_Student
 			end
 		end
 	end
+
+	def get_info
+		str = "id = #{@id}"
+		str += ", ФИО = #{@surname_inits}"
+		if @git
+			str += ", git = #{@git}"
+		end
+		if @contact
+			str += ", контакт = #{@contact}"
+		end
+		return str
+	end
 end
