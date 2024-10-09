@@ -1,44 +1,30 @@
 require_relative 'MainStudent.rb'
 
 class Student < MainStudent
-	attr_accessor :name, :surname, :patronymic
-	attr_reader :phone, :tg, :email
+	attr_reader :name, :surname, :patronymic
 
 	def surname=(surname)
-		if (!surname.nil? && Student.valid_surname?(surname))
+		if (Student.valid_surname?(surname))
 			@surname = surname
 		else
 			raise ArgumentError, "Неверный формат фамилии: #{surname}"
  		end   
     end
     def name=(name)
-		if (!name.nil? && Student.valid_name?(name))
+		if (Student.valid_name?(name))
 			@name = name
 		else
 			raise ArgumentError, "Неверный формат имени: #{name}"
  		end   
     end
     def patronymic=(patronymic)
-		if (!patronymic.nil? && Student.valid_patronymic?(patronymic))
+		if (Student.valid_patronymic?(patronymic))
 			@patronymic = patronymic
 		else
 			raise ArgumentError, "Неверный формат отчества: #{patronymic}"
  		end   
     end
-    def id=(id)
-		if (Student.valid_id?(id))
-			@id = id
-		else
-			raise ArgumentError, "Неверный формат id: #{id}"
- 		end   
-    end
-    def git=(git)
-		if (Student.valid_git?(git))
-			@git = git
-		else
-			raise ArgumentError, "Неверный формат адреса git: #{git}"
- 		end   
-    end
+    
     private def phone=(phone)
 		if (Student.valid_phone?(phone))
 			@phone = phone
@@ -62,11 +48,10 @@ class Student < MainStudent
     end
 
 	def initialize(surname:, name:, patronymic:, id: nil, phone: nil, tg: nil, email: nil, git: nil)
-   		self.id = id
+		super(id: id, git: git)
    		self.surname = surname
 		self.name = name
 		self.patronymic = patronymic
-		self.git = git
 		self.set_contacts(phone: phone, tg: tg, email: email)
 	end
 
@@ -78,14 +63,6 @@ class Student < MainStudent
 		str += ", email = #{@email}" if @email
 		str += ", git = #{@git}" if @git
 		return str
-	end
-
-	def self.valid_id?(id)
-		if !id.nil?
-			return id.match?(/^[0-9]+$/)
-		else
-			return true
-		end
 	end
 
 	def self.valid_surname?(surname)
@@ -134,15 +111,6 @@ class Student < MainStudent
 		end
 	end
 
-
-	def self.valid_git?(git)
-		if !git.nil?
-			return git.match?(/^(https:\/\/)?github.com\/[a-zA-Z0-9_-]+$/)
-		else 
-			return true
-		end
-	end
-
 	def has_git?()
 		if self.git == nil
 			return false
@@ -163,8 +131,8 @@ class Student < MainStudent
 		return false
 	end	
 
-	def validate()
-		return self.has_git?() && self.has_contact?()
+	def contain()
+		return has_git?() && has_contact?()
 	end
 
 	def set_contacts(phone: nil, tg: nil, email: nil)
@@ -179,22 +147,24 @@ class Student < MainStudent
 		end 
 	end
 
-	def get_fio
-		if !self.surname_inits.nil?
-			return "ФИО: #{self.surname_inits}"
+	def get_info()
+		@surname_inits = "#{@surname} #{@name[0]}. #{@patronymic[0]}."
+		str = "ФИО = #{surname_inits}"
+		if @git
+			str += ", git = #{git}"
 		end
+		contact = ""
+		if @phone
+			contact += ", phone = #{@phone}"
+			@contact = @phone
+		elsif @email
+			contact += ", email = #{@email}"
+			@contact = @email
+		elsif @tg
+			contact += ", tg = #{@tg}"
+			@contact = @tg
+		end
+		str += contact
+		return str
 	end
-
-	def get_contact
-		if(!self.phone.nil?)
-			return "Телефон: #{self.phone}"
-		end
-		if(!self.email.nil?)
-			return "Почта: #{self.email}"
-		end
-		if(!self.tg.nil?)
-			return "Телеграм: #{self.tg}"
-		end
-	end
-
 end
