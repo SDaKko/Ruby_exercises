@@ -4,12 +4,11 @@ class StudentShort < MainStudent
 	
 	def initialize(student: nil, id: nil, info: nil)
 		if(student)
-			@id = student.id
+			super(id: student.id, git: student.git)
 			@surname_inits = student.surname_inits
-			@git = student.git
 			@contact = student.contact
 		elsif (id && info)
-			@id = id
+			super(id: id)
 			parse_str(info)
 		end	
 			
