@@ -14,7 +14,7 @@ class StudentShort < MainStudent
 			
 	end
 
-	def parse_str(str)
+	private def parse_str(str)
 		str.split(",").map do |part|
 			piece = part.split("=")
 			case piece[0].strip
