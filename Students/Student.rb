@@ -1,4 +1,4 @@
-require_relative 'MainStudent.rb'
+require_relative 'Main_Student.rb'
 
 class Student < MainStudent
 	attr_reader :name, :surname, :patronymic
