@@ -1,5 +1,5 @@
-require_relative "Student"
-require_relative "Student_Short"
+require_relative "student"
+require_relative "student_short"
 
 students = [
 	Student.new(name: "Владимир", surname: "Иванов", patronymic: "Аркадьевич", phone: "+79183336640", git: "github.com/ok"),
