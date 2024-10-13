@@ -15,7 +15,9 @@ students[0].set_contacts(phone: "+77777777777")
 puts students[0].phone
 puts students[0].get_info
 puts students[0].surname_inits
-st_short = StudentShort.new(id: "1", info: students[0].get_info)
+st_short = StudentShort.from_str("1", students[0].get_info)
+st_short_last = StudentShort.new(student: students[1])
+puts st_short_last
 puts st_short.surname_inits
 puts st_short.contact
 puts st_short
