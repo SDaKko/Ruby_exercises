@@ -21,9 +21,13 @@ def elements_after_first_max(arr)
 	arr.each_with_index do |elem, ind|
 		if elem > max
 			index_max = ind
-			max = elem 
+			max = elem
 		end
 	end
 
 	arr[index_max + 1..-1]
+end
+
+def different_signs?(array)
+	array.each_cons(2).all? { |a, b| a * b < 0 }
 end
