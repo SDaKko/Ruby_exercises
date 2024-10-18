@@ -28,6 +28,17 @@ def elements_after_first_max(arr)
 	arr[index_max + 1..-1]
 end
 
-def different_signs?(array)
-	array.each_cons(2).all? { |a, b| a * b < 0 }
+def different_signs?(arr)
+	arr.each_cons(2).all? { |a, b| a * b < 0 }
+end
+
+def sum_elems_interval(arr, a, b)
+	sum = 0
+	arr.each do |elem|
+		if (elem > a and elem < b)
+			sum += elem
+		end
+	end
+
+	sum
 end
