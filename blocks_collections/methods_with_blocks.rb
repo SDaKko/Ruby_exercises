@@ -42,3 +42,17 @@ def sum_elems_interval(arr, a, b)
 
 	sum
 end
+
+def count_greater_than_sum(arr)
+	sum = 0
+	count = 0
+
+	arr.each do |elem|
+		if elem > sum
+			count += 1
+		end
+		sum += elem
+	end
+
+	count
+end
