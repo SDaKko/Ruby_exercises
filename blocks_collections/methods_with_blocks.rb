@@ -56,3 +56,48 @@ def count_greater_than_sum(arr)
 
 	count
 end
+
+def input_arr()
+	puts "Введите элементы массива (через пробел):"
+	input = gets.chomp
+	arr = input.split.map{|x| x.to_i}
+	return arr
+end
+
+
+puts "Задачи:\n1) Найти элементы, расположенные перед последним минимальным.\n2) Найти элементы, расположенные после первого максимального.
+3) Проверить чередование положительных и отрицательных чисел массива.\n4) Найти сумму элементов, значение которых попадает в интервал (a, b).
+5) Найти количество элементов, которые больше, чем сумма всех предыдущих."
+puts "\nВведите номер задачи: "
+num = gets.chomp.to_i
+
+case num
+when 1
+	arr = input_arr()
+	puts "Элементы, расположенные перед последним минимальным:"
+	puts elements_before_last_min(arr)
+when 2
+	arr = input_arr()
+	puts "Элементы, расположенные после первого максимального:"
+	puts elements_after_first_max(arr)
+when 3
+	arr = input_arr()
+	if(different_signs?(arr))
+		puts "Отрицательные и положительные числа в массиве чередуются."
+	else
+		puts "Отрицательные и положительные числа в массиве не чередуются."
+	end
+when 4
+	arr = input_arr()
+	puts "Введите интервал (a, b):"
+	puts "a: "
+	a = gets.chomp.to_i
+	puts "b: "
+	b = gets.chomp.to_i
+	puts "Сумма элементов, значение которых попадает в интервал (a, b):"
+	puts sum_elems_interval(arr, a, b)
+when 5
+	arr = input_arr()
+	puts "Количество элементов, которые больше, чем сумма всех предыдущих:"
+	puts count_greater_than_sum(arr)
+end
