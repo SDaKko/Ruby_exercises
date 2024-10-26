@@ -25,4 +25,13 @@ class ArrayProcessing
 
 		false  
 	end
+
+	def sum()
+		sum = 0
+		arr.each do |element|
+			sum += yield(element)
+		end
+
+		sum
+	end
 end
