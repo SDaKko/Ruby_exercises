@@ -46,4 +46,11 @@ class ArrayProcessing
 		
 		initial
 	end
+
+	def include?()
+
+		arr.each {|element| return true if yield(element)}
+		false
+	end
+
 end
