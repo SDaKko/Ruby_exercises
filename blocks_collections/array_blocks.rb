@@ -16,4 +16,13 @@ class ArrayProcessing
 		result
 	end
 
+	def member?()
+		arr.each do |element|  
+			if yield(element)
+				return true
+			end  
+		end
+
+		false  
+	end
 end
