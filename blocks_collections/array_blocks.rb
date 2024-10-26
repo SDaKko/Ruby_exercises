@@ -34,4 +34,16 @@ class ArrayProcessing
 
 		sum
 	end
+
+	def reduce(initial = nil)
+
+		if initial.nil?
+			initial = arr.first
+			arr[1..-1].each {|element| initial = yield(initial, element)}
+		else  
+			arr.each {|element| initial = yield(initial, element)}
+		end
+		
+		initial
+	end
 end
