@@ -53,4 +53,47 @@ class ArrayProcessing
 		false
 	end
 
+	def chunk()
+		result = []
+		current_chunk = []
+		arr_values = []
+		flag = 0
+		arr.each do |element|
+			if current_chunk.empty?
+				current_chunk << yield(element)
+				if(yield(element))
+					flag = 0
+				else
+					flag = 1
+				end
+			end
+			if flag == 0
+				if(yield(element))
+					arr_values << element
+				else
+					flag = 1 
+					current_chunk << arr_values
+					result << current_chunk
+					current_chunk = [yield(element)]
+					arr_values = [element]
+					current_chunk << arr_values
+				end
+			else
+				if(!yield(element))
+					arr_values << element
+				else
+					flag = 0 
+					current_chunk << arr_values
+					result << current_chunk
+					current_chunk = [yield(element)]
+					arr_values = [element]
+					current_chunk << arr_values
+				end
+			end
+		end
+
+		result << current_chunk unless current_chunk.empty?
+		result
+	end
+
 end
