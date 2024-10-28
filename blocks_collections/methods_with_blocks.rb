@@ -10,16 +10,8 @@ end
 def elements_after_first_max(arr)
 	return [] if arr.empty?
 
-	index_max = 0
-	max = arr[0]
-	arr.each_with_index do |elem, ind|
-		if elem > max
-			index_max = ind
-			max = elem
-		end
-	end
-
-	arr[index_max + 1..-1]
+	max_index = arr.find_index{|element| element == arr.max}
+	arr[max_index + 1..-1]
 end
 
 # 1.33 Дан целочисленный массив. Проверить, чередуются ли в нем положительные и отрицательные числа.
