@@ -1,18 +1,12 @@
+# 1.9 Дан целочисленный массив. Необходимо найти элементы, расположенные перед последним минимальным.
 def elements_before_last_min(arr)
 	return [] if arr.empty?
 
-	index_min = 0
-	min = arr[0]
-	arr.each_with_index do |elem, ind|
-		if elem <= min
-			index_min = ind
-			min = elem 
-		end
-	end
-
-	arr[0...index_min]
+	last_min_index = arr.rindex(arr.min)
+	arr[0...last_min_index]
 end
 
+# 1.21 Дан целочисленный массив. Необходимо найти элементы, расположенные после первого максимального.
 def elements_after_first_max(arr)
 	return [] if arr.empty?
 
@@ -28,10 +22,12 @@ def elements_after_first_max(arr)
 	arr[index_max + 1..-1]
 end
 
+# 1.33 Дан целочисленный массив. Проверить, чередуются ли в нем положительные и отрицательные числа.
 def different_signs?(arr)
 	arr.each_cons(2).all? { |a, b| a * b < 0 }
 end
 
+# 1.45 Дан целочисленный массив и интервал a..b. Необходимо найти сумму элементов, значение которых попадает в этот интервал.
 def sum_elems_interval(arr, a, b)
 	sum = 0
 	arr.each do |elem|
@@ -43,6 +39,7 @@ def sum_elems_interval(arr, a, b)
 	sum
 end
 
+# 1.57 Для введенного списка найти количество таких элементов, которые больше, чем сумма всех предыдущих.
 def count_greater_than_sum(arr)
 	sum = 0
 	count = 0
