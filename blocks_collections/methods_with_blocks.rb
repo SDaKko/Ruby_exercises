@@ -26,17 +26,15 @@ end
 
 # 1.57 Для введенного списка найти количество таких элементов, которые больше, чем сумма всех предыдущих.
 def count_greater_than_sum(arr)
-	sum = 0
-	count = 0
+	current_sum = 0
 
-	arr.each do |elem|
-		if elem > sum
-			count += 1
-		end
-		sum += elem
+	result = arr.select do |element|
+		is_greater = element > current_sum
+		current_sum += element
+		is_greater
 	end
 
-	count
+	result.size
 end
 
 def input_arr()
