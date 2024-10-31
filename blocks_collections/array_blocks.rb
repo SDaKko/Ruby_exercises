@@ -71,8 +71,10 @@ class ArrayProcessing
 				if(yield(element))
 					arr_values << element
 				else
-					flag = 1 
-					current_chunk << arr_values
+					flag = 1
+					if current_chunk.size == 1
+						current_chunk << arr_values
+					end
 					result << current_chunk
 					current_chunk = [yield(element)]
 					arr_values = [element]
@@ -83,7 +85,9 @@ class ArrayProcessing
 					arr_values << element
 				else
 					flag = 0 
-					current_chunk << arr_values
+					if current_chunk.size == 1
+						current_chunk << arr_values
+					end
 					result << current_chunk
 					current_chunk = [yield(element)]
 					arr_values = [element]
