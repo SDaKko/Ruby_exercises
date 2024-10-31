@@ -21,14 +21,7 @@ end
 
 # 1.45 Дан целочисленный массив и интервал a..b. Необходимо найти сумму элементов, значение которых попадает в этот интервал.
 def sum_elems_interval(arr, a, b)
-	sum = 0
-	arr.each do |elem|
-		if (elem > a and elem < b)
-			sum += elem
-		end
-	end
-
-	sum
+	arr.select { |element| element > a && element < b }.sum
 end
 
 # 1.57 Для введенного списка найти количество таких элементов, которые больше, чем сумма всех предыдущих.
