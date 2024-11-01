@@ -56,48 +56,22 @@ class ArrayProcessing
 	def chunk()
 		result = []
 		current_chunk = []
-		arr_values = []
-		flag = 0
+		last_key = nil
+
 		arr.each do |element|
-			if current_chunk.empty?
-				current_chunk << yield(element)
-				if(yield(element))
-					flag = 0
-				else
-					flag = 1
-				end
-			end
-			if flag == 0
-				if(yield(element))
-					arr_values << element
-				else
-					flag = 1
-					if current_chunk.size == 1
-						current_chunk << arr_values
-					end
-					result << current_chunk
-					current_chunk = [yield(element)]
-					arr_values = [element]
-					current_chunk << arr_values
-				end
+			key = yield(element)
+			if key != last_key
+				result << [last_key, current_chunk] if last_key != nil
+				current_chunk = [element]
+				last_key = key
 			else
-				if(!yield(element))
-					arr_values << element
-				else
-					flag = 0 
-					if current_chunk.size == 1
-						current_chunk << arr_values
-					end
-					result << current_chunk
-					current_chunk = [yield(element)]
-					arr_values = [element]
-					current_chunk << arr_values
-				end
+				current_chunk << element
 			end
 		end
 
-		result << current_chunk unless current_chunk.empty?
+		result << [last_key, current_chunk] if last_key != nil
 		result
+
 	end
 
 end
