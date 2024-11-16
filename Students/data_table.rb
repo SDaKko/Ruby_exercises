@@ -13,4 +13,24 @@ class DataTable
 		@matr = matr.map{|arr| arr.dup}
 	end
 
+	def get_element(row, col)
+		unless (0...self.row_count).include?(row) && (0...self.column_count).include?(col)
+			return nil
+		end
+		self.matr[row][col]
+	end
+
+	def row_count()
+		self.matr.size
+	end
+
+	def column_count()
+        if self.matr.empty?
+            return 0
+        end
+
+        self.matr[0].size
+    end
+
 end
+
