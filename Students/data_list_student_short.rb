@@ -1,4 +1,3 @@
-require_relative 'data_table.rb'
 require_relative 'data_list.rb'
 
 class DataListStudentShort < DataList
@@ -11,12 +10,16 @@ class DataListStudentShort < DataList
 		table = []
 		self.get_selected.each do |number|
 			obj = list[number]
-			row = [index, obj.surname_inits, obj.git, obj.contact]
+			row = [index].concat(get_row(obj))
 			table.append(row)
 			index += 1
 		end
 
-		DataTable.new(table)
+		table
+	end
+
+	private def get_row(obj)
+		return [obj.surname_inits, obj.git, obj.contact]
 	end
 
 end

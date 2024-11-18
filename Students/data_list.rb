@@ -1,3 +1,5 @@
+require_relative 'data_table.rb'
+
 class DataList
 	protected attr_reader :list
 	protected attr_accessor :selected_elem, :selected_id_arr
@@ -27,6 +29,14 @@ class DataList
 		self.selected_id_arr.dup()
 	end
 
+	# Шаблонный метод 
+	def unite_table()
+		table = []
+		table << self.get_names
+		table.concat(self.get_data)
+		DataTable.new(table)
+	end
+
 	# Абстрактные методы
 	def get_names()
 		raise NotImplementedError, "Метод get_names должен быть реализован в наследниках!"
@@ -37,4 +47,3 @@ class DataList
 	end
 
 end
-

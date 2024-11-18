@@ -2,7 +2,7 @@ class DataTable
 	private attr_reader :matr
 
 	def initialize(matr)
-    	self.matr = matr
+		self.matr = matr
 	end
 
 	private def matr=(matr)
@@ -33,4 +33,3 @@ class DataTable
     end
 
 end
-
