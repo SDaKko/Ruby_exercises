@@ -9,7 +9,7 @@ class DataList
 		self.selected_id_arr = []
 	end
 
-	protected def list=(list)
+	def list=(list)
 		unless list.is_a?(Array)
 			raise ArgumentError, "Параметром должен быть массив!"
 		end
