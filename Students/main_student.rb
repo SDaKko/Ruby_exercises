@@ -24,7 +24,7 @@ class MainStudent
 
     def self.valid_id?(id)
 		if !id.nil?
-			return id.match?(/^[0-9]+$/)
+			return id.to_s.match?(/^[0-9]+$/)
 		else
 			return true
 		end
@@ -39,9 +39,8 @@ class MainStudent
 	end
 
 	def get_fio
-		if !self.surname_inits.nil?
-			return "ФИО: #{self.surname_inits}"
-		end
+		@surname_inits = "#{surname} #{name[0]}. #{patronymic[0]}."
+		surname_inits
 	end
 
 	def get_contact

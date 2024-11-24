@@ -59,21 +59,21 @@ class Student < MainStudent
 		if surname == nil
 			return false
 		end
-		return surname.match?(/^[A-ZА-ЯЁ][a-zа-яё]+$/)
+		return surname.match?(/^[A-ZА-ЯЁ][a-zа-яё]*$/)
 	end
 
 	def self.valid_name?(name)
 		if name == nil
 			return false
 		end
-		return name.match?(/^[A-ZА-ЯЁ][a-zа-яё]+$/)
+		return name.match?(/^[A-ZА-ЯЁ][a-zа-яё]*$/)
 	end
 
 	def self.valid_patronymic?(patronymic)
 		if patronymic == nil
 			return false
 		end
-		return patronymic.match?(/^[A-ZА-ЯЁ][a-zа-яё]+$/)
+		return patronymic.match?(/^[A-ZА-ЯЁ][a-zа-яё]*$/)
 	end
 
 	def self.valid_phone?(phone)
@@ -138,23 +138,27 @@ class Student < MainStudent
 	end
 
 	def get_info()
-		@surname_inits = "#{@surname} #{@name[0]}. #{@patronymic[0]}."
-		str = "ФИО = #{surname_inits}"
+		str = "ФИО = #{get_fio}"
 		if @git
 			str += ", git = #{git}"
 		end
 		contact = ""
 		if @phone
-			contact += ", phone = #{@phone}"
-			@contact = @phone
+			contact += ", phone = #{phone}"
+			@contact = phone
 		elsif @email
-			contact += ", email = #{@email}"
-			@contact = @email
+			contact += ", email = #{email}"
+			@contact = email
 		elsif @tg
-			contact += ", tg = #{@tg}"
-			@contact = @tg
+			contact += ", tg = #{tg}"
+			@contact = tg
 		end
 		str += contact
 		return str
+	end
+
+	def to_h
+		{id: self.id, surname: self.surname, name: self.name, patronymic: self.patronymic, 
+		tg: self.tg, email: self.email, phone: self.phone, git: self.git}
 	end
 end
