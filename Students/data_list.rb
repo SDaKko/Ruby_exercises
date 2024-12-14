@@ -37,13 +37,31 @@ class DataList
 		DataTable.new(table)
 	end
 
-	# Абстрактные методы
+	# Шаблонный метод
 	def get_names()
-		raise NotImplementedError, "Метод get_names должен быть реализован в наследниках!"
+		get_students_names
 	end
 
+	def get_students_names()
+		raise NotImplementedError, "Метод get_students_names должен быть реализован в наследниках!"
+	end
+
+	# Шаблонный метод
 	def get_data()
-		raise NotImplementedError, "Метод get_data должен быть реализован в наследниках!"
+		index = 1
+		table = []
+		self.get_selected.each do |number|
+			obj = list[number]
+			row = [index].concat(get_row(obj))
+			table.append(row)
+			index += 1
+		end
+
+		table
+	end
+	
+	def get_row(obj)
+		raise NotImplementedError, "Метод get_row должен быть реализован в наследниках!"
 	end
 
 end
