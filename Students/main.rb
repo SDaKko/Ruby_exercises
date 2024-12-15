@@ -16,17 +16,23 @@ students[0].set_contacts(phone: "+77777777777")
 puts students[0].phone
 puts students[0].get_info
 puts students[0].surname_inits
-st_short = StudentShort.from_str("1", students[0].get_info)
+st_short = StudentShort.from_str(1, students[0].get_info)
 st_short_last = StudentShort.new(student: students[1])
 puts st_short_last
 puts st_short
 
 data_table = DataTable.new([[]])
 data_list_1 = DataListStudentShort.new([st_short, st_short_last])
+# data_list_1 = DataList.new([st_short, st_short_last])
+st_names = data_list_1.get_names()
+st_data = data_list_1.get_data()
+puts st_names
+p st_data
 data_list_1.select(0)
 data_list_1.select(1)
-united_table = data_list_1.unite_table()
-element = united_table.get_element(1, 1)
+st_names = data_list_1.get_names()
+st_data = data_list_1.get_data()
+puts st_names
+p st_data
+element = st_data.get_element(1, 1)
 puts element
-
-

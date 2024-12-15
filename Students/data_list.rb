@@ -29,14 +29,6 @@ class DataList
 		self.selected_id_arr.dup()
 	end
 
-	# Шаблонный метод 
-	def unite_table()
-		table = []
-		table << self.get_names
-		table.concat(self.get_data)
-		DataTable.new(table)
-	end
-
 	# Шаблонный метод
 	def get_names()
 		get_students_names
@@ -57,7 +49,7 @@ class DataList
 			index += 1
 		end
 
-		table
+		DataTable.new(table)
 	end
 	
 	def get_row(obj)
