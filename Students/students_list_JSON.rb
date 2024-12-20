@@ -1,6 +1,4 @@
-require_relative 'data_list_student_short.rb'
-require_relative 'student.rb'
-require_relative 'student_short.rb'
+require_relative 'students_list.rb'
 require 'json'
 
 class StudentsListJSON < StudentsList
@@ -10,9 +8,7 @@ class StudentsListJSON < StudentsList
             raise "Файл не найден!" 
         end
 
-        JSON.parse(File.read(file_path), symbolize_names: true).map do |data|
-            Student.new(**data)
-        end 
+        self.students_array = JSON.parse(File.read(file_path), symbolize_names: true).map { |data| Student.new(**data) }
     end
 
     def write()

@@ -1,6 +1,4 @@
-require_relative 'data_list_student_short.rb'
-require_relative 'student.rb'
-require_relative 'student_short.rb'
+require_relative 'students_list.rb'
 require 'yaml'
 
 class StudentsListYAML < StudentsList
@@ -10,9 +8,7 @@ class StudentsListYAML < StudentsList
             raise "Файл не найден!" 
         end
 
-		YAML.load_file(file_path, symbolize_names: true).map do |data|
-			Student.new(**data)
-		end
+		self.students_array = YAML.load_file(file_path, symbolize_names: true).map{ |data| Student.new(**data) }
 	end
 
 	def write()

@@ -4,11 +4,10 @@ require_relative 'student_short.rb'
 
 class StudentsList
 	private attr_accessor :file_path
-	private attr_writer :students_array
+	protected attr_writer :students_array
 
 	def initialize(file_path)
 		self.file_path = file_path
-		self.students_array = read
 	end
 
 	def students_array()
@@ -30,7 +29,7 @@ class StudentsList
 		if students_array[start, n]
 			selected = students_array[start, n]
 		end
-		students_short = selected.map { |student| StudentShort.new(student: student) }
+		selected.map { |student| StudentShort.new(student: student) }
 		if data_list.nil?
 			data_list = DataListStudentShort.new(selected)
 		end
