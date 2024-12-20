@@ -1,13 +1,23 @@
 require_relative 'data_list_student_short.rb'
 require_relative 'student.rb'
 require_relative 'student_short.rb'
+require_relative 'students_list_YAML.rb'
+require_relative 'students_list_JSON.rb'
 
 class StudentsList
-	private attr_accessor :file_path
+	protected attr_accessor :format_strategy
 	protected attr_writer :students_array
 
-	def initialize(file_path)
-		self.file_path = file_path
+	def initialize(format_strategy)
+		self.format_strategy = format_strategy
+	end
+
+	def read(file_path)
+		self.students_array = self.format_strategy.read(file_path)
+	end
+
+	def write(file_path)
+		self.format_strategy.write(file_path, students_array)
 	end
 
 	def students_array()

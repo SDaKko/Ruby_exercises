@@ -1,6 +1,8 @@
 require_relative "student"
 require_relative "student_short"
 require_relative 'data_list_student_short.rb'
+require_relative 'students_list.rb'
+require_relative 'students_list_strategy.rb'
 
 students = [
 	Student.new(name: "Владимир", surname: "Иванов", patronymic: "Аркадьевич", phone: "+79183336640", git: "github.com/ok"),
@@ -36,3 +38,20 @@ puts st_names
 p st_data
 element = st_data.get_element(1, 1)
 puts element
+
+
+student_list_json = StudentsList.new(StudentsListJSON.new)
+student_list_yaml = StudentsList.new(StudentsListYAML.new)
+
+file_path_json = 'C:\Patterns\students_JSON.txt'
+file_path_yaml = 'C:\Patterns\students_YAML.txt'
+
+student_list_json.read(file_path_json)
+# student_list_json.write(file_path_json)
+student_list_yaml.read(file_path_yaml)
+# student_list_yaml.write(file_path_yaml)
+student_list_yaml.sort_by_fio()
+student_list_json.sort_by_fio()
+p student_list_json.get_k_n_student_short_list(1, 20)
+
+p student_list_yaml.get_k_n_student_short_list(1, 20)
