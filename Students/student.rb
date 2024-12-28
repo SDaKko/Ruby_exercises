@@ -157,6 +157,27 @@ class Student < MainStudent
 		return str
 	end
 
+	def ==(other)
+
+		if self.git != nil && self.git == other.git
+			return true
+		end
+
+		if self.phone != nil && self.phone == other.phone
+			return true
+		end
+
+		if self.email != nil && self.email == other.email
+			return true
+		end
+
+		if self.tg != nil && self.tg == other.tg
+			return true
+		end
+
+		return false
+	end
+
 	def to_h
 		{id: self.id, surname: self.surname, name: self.name, patronymic: self.patronymic, 
 		tg: self.tg, email: self.email, phone: self.phone, git: self.git}

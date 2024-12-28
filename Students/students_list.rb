@@ -58,7 +58,12 @@ class StudentsList
 			max_id = students_array.map{|student| student.id}.max
 		end
 		student.id = max_id + 1
-		@students_array << student
+		
+		if !(@students_array.find{ |student_from_array| student_from_array == student })
+			@students_array << student
+		else
+			raise "Запрещено добавление студентов с одинаковыми полями контактов и гит!"
+		end
 	end
 
 	def replace_student_by_id(id, new_student)

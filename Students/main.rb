@@ -55,3 +55,9 @@ student_list_json.sort_by_fio()
 p student_list_json.get_k_n_student_short_list(1, 20)
 
 p student_list_yaml.get_k_n_student_short_list(1, 20)
+
+student_for_check = Student.new(surname: "Петров", name: "Андрей", patronymic: "Геннадьевич", tg: "@onehjd2", phone: "+79183336697")
+student_list_json.add_student(student_for_check)
+
+p student_list_json.get_k_n_student_short_list(1, 20)
+
