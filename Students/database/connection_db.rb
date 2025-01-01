@@ -1,4 +1,5 @@
 require 'pg'
+require_relative 'student.rb'
 
 connection = PG.connect(
 	dbname: 'Students_Ruby',
@@ -10,4 +11,7 @@ connection = PG.connect(
 
 result = connection.exec("SELECT * FROM student")
 
-result.each{|row| puts row}
+result.each do |row|
+	student = Student.new_from_hash(row)
+	puts student
+end
