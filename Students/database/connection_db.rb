@@ -7,3 +7,7 @@ connection = PG.connect(
 	host:"localhost",
 	port:5432
 )
+
+result = connection.exec("SELECT * FROM student")
+
+result.each{|row| puts row}
