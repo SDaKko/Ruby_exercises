@@ -55,6 +55,11 @@ class Student < MainStudent
 		self.set_contacts(phone: phone, tg: tg, email: email)
 	end
 
+	def self.new_from_hash(params)
+    	params = params.transform_keys{ |key| key.to_sym }
+    	new(**params)
+	end
+
 	def self.valid_surname?(surname)
 		if surname == nil
 			return false
