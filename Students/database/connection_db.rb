@@ -1,17 +1,24 @@
 require 'pg'
-require_relative 'student.rb'
 
-connection = PG.connect(
-	dbname: 'Students_Ruby',
-	user: "postgres",
-	password: "password",
-	host:"localhost",
-	port:5432
-)
+class ConnectionDB
+	private attr_accessor :connection
 
-result = connection.exec("SELECT * FROM student")
+	def initialize()
+		self.connection = PG.connect(
+			dbname: 'Students_Ruby',
+			user: "postgres",
+			password: "password",
+			host:"localhost",
+			port:5432
+		)
+	end
 
-result.each do |row|
-	student = Student.new_from_hash(row)
-	puts student
+	def query(query, params=[])
+		self.connection.exec_params(query, params)
+	end
+    
+	def close()
+		self.connection.close
+	end
+
 end
