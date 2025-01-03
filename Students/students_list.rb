@@ -39,7 +39,7 @@ class StudentsList
 		if students_array[start, n]
 			selected = students_array[start, n]
 		end
-		selected.map { |student| StudentShort.new(student: student) }
+		selected = selected.map { |student| StudentShort.new(student: student) }
 		if data_list.nil?
 			data_list = DataListStudentShort.new(selected)
 		end
