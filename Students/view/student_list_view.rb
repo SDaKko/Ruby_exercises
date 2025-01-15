@@ -12,6 +12,7 @@ class StudentListView < FXVerticalFrame
 
     def initialize(parent)
         super(parent, opts: LAYOUT_FILL)
+        self.filters = {}
         setup_filtering_area
         setup_table_area
         setup_control_buttons_area
@@ -20,14 +21,19 @@ class StudentListView < FXVerticalFrame
     def setup_filtering_area()
         filtering_area = FXVerticalFrame.new(self, opts: LAYOUT_FILL_X | LAYOUT_SIDE_TOP)
         FXLabel.new(filtering_area, "Фильтрация")
+        name_text_field = nil
         FXHorizontalFrame.new(filtering_area, opts: LAYOUT_FILL_X) do |frame|
             FXLabel.new(frame, "Фамилия и инициалы:")
-            FXTextField.new(frame, 20, opts: TEXTFIELD_NORMAL)
+            name_text_field = FXTextField.new(frame, 20, opts: TEXTFIELD_NORMAL)
         end
+        self.filters['name'] = { text_field: name_text_field }
         add_filtering_row(filtering_area, "Гит:")
         add_filtering_row(filtering_area, "Почта:")
         add_filtering_row(filtering_area, "Телефон:")
         add_filtering_row(filtering_area, "Телеграм:")
+        FXButton.new(filtering_area, "Сбросить", opts: BUTTON_NORMAL).connect(SEL_COMMAND) do
+            reset_filters
+        end
     end
     
     def add_filtering_row(parent, label)
@@ -40,6 +46,7 @@ class StudentListView < FXVerticalFrame
             combo_box.appendItem("Нет")
             text_field = FXTextField.new(frame, 15, opts: TEXTFIELD_NORMAL)
             text_field.enabled = false
+            self.filters[label] = { combo_box: combo_box, text_field: text_field }
             combo_box.connect(SEL_COMMAND){ text_field.enabled = (combo_box.currentItem == 1) }
         end
     end
@@ -78,7 +85,7 @@ class StudentListView < FXVerticalFrame
 
     private
   
-    attr_accessor :table, :data, :total_pages, :current_page, :current_page_label, :prev_button, :next_button, :sort_order, :add_button, :update_button, :edit_button, :delete_button
+    attr_accessor :table, :data, :total_pages, :current_page, :current_page_label, :prev_button, :next_button, :sort_order, :add_button, :update_button, :edit_button, :delete_button, :filters
 
     def populate_table()
         data_list = DataListStudentShort.new([
@@ -207,4 +214,13 @@ class StudentListView < FXVerticalFrame
     def on_delete()
     
     end
+
+    def reset_filters()
+        self.filters.each_value do |field|
+            field[:combo_box].setCurrentItem(0) if !field[:combo_box].nil?
+            field[:text_field].text = ""
+        end
+        populate_table
+    end
+
 end
