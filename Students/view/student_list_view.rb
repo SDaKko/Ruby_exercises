@@ -14,6 +14,7 @@ class StudentListView < FXVerticalFrame
         super(parent, opts: LAYOUT_FILL)
         setup_filtering_area
         setup_table_area
+        setup_control_buttons_area
     end
 
     def setup_filtering_area()
@@ -23,10 +24,10 @@ class StudentListView < FXVerticalFrame
             FXLabel.new(frame, "Фамилия и инициалы:")
             FXTextField.new(frame, 20, opts: TEXTFIELD_NORMAL)
         end
-        add_filtering_row(filtering_area, "Git:")
-        add_filtering_row(filtering_area, "Email:")
+        add_filtering_row(filtering_area, "Гит:")
+        add_filtering_row(filtering_area, "Почта:")
         add_filtering_row(filtering_area, "Телефон:")
-        add_filtering_row(filtering_area, "Telegram:")
+        add_filtering_row(filtering_area, "Телеграм:")
     end
     
     def add_filtering_row(parent, label)
@@ -59,18 +60,34 @@ class StudentListView < FXVerticalFrame
         populate_table
     end
 
+    def setup_control_buttons_area()
+        button_area = FXHorizontalFrame.new(self, opts: LAYOUT_FILL_X | PACK_UNIFORM_WIDTH)
+        self.add_button = FXButton.new(button_area, "Добавить", opts: BUTTON_NORMAL)
+        self.edit_button = FXButton.new(button_area, "Изменить", opts: BUTTON_NORMAL)
+        self.delete_button = FXButton.new(button_area, "Удалить", opts: BUTTON_NORMAL)
+        self.update_button = FXButton.new(button_area, "Обновить", opts: BUTTON_NORMAL)
+        self.add_button.connect(SEL_COMMAND) { on_add }
+        self.update_button.connect(SEL_COMMAND) { on_update }
+        self.edit_button.connect(SEL_COMMAND) { on_edit }
+        self.delete_button.connect(SEL_COMMAND) { on_delete }
+        self.table.connect(SEL_SELECTED) { update_button_states }
+        self.table.connect(SEL_DESELECTED) { update_button_states }
+        update_button_states
+        populate_table
+    end
+
     private
   
-    attr_accessor :table, :data, :total_pages, :current_page, :current_page_label, :prev_button, :next_button, :sort_order
+    attr_accessor :table, :data, :total_pages, :current_page, :current_page_label, :prev_button, :next_button, :sort_order, :add_button, :update_button, :edit_button, :delete_button
 
     def populate_table()
         data_list = DataListStudentShort.new([
-          Student.new(name: "Петр", surname: "Петров", patronymic: "Петрович", git: "github.com/ok1", id: 0, tg: "@petrov", email: "petr@gmail.com", phone: "+78347689076"),
-          Student.new(name: "Андрей", surname: "Андреев", patronymic: "Андреевич", git: "github.com/ok2", id: 1, tg: "@andreev", email: "andreev@gmail.com", phone: "+78005559048"),
-          Student.new(name: "Аркадий", surname: "Аркадьев", patronymic: "Аркадьевич", git: "github.com/ok3", id: 2, tg: "@arkadiev", email: "arkadiev@gmail.com", phone: "+78705754325"),
-          Student.new(name: "Владимир", surname: "Владимиров", patronymic: "Владимирович", git: "github.com/ok4", id: 3, tg: "@vladimirov", email: "vladimirov@gmail.com", phone: "+78905773938"),
-          Student.new(name: "Александр", surname: "Александров", patronymic: "Александрович", git: "github.com/ok5", id: 4, tg: "@aleksandrow", email: "alexandrov@gmail.com", phone: "+78005556789"),
-          Student.new(name: "Алексей", surname: "Алексеев", patronymic: "Алексеевич", git: "github.com/ok6", id: 5, tg: "@alexeev", email: "alexeev@gmail.com", phone: "+79195527745"),
+            Student.new(name: "Петр", surname: "Петров", patronymic: "Петрович", git: "github.com/ok1", id: 0, tg: "@petrov", email: "petr@gmail.com", phone: "+78347689076"),
+            Student.new(name: "Андрей", surname: "Андреев", patronymic: "Андреевич", git: "github.com/ok2", id: 1, tg: "@andreev", email: "andreev@gmail.com", phone: "+78005559048"),
+            Student.new(name: "Аркадий", surname: "Аркадьев", patronymic: "Аркадьевич", git: "github.com/ok3", id: 2, tg: "@arkadiev", email: "arkadiev@gmail.com", phone: "+78705754325"),
+            Student.new(name: "Владимир", surname: "Владимиров", patronymic: "Владимирович", git: "github.com/ok4", id: 3, tg: "@vladimirov", email: "vladimirov@gmail.com", phone: "+78905773938"),
+            Student.new(name: "Александр", surname: "Александров", patronymic: "Александрович", git: "github.com/ok5", id: 4, tg: "@aleksandrow", email: "alexandrov@gmail.com", phone: "+78005556789"),
+            Student.new(name: "Алексей", surname: "Алексеев", patronymic: "Алексеевич", git: "github.com/ok6", id: 5, tg: "@alexeev", email: "alexeev@gmail.com", phone: "+79195527745"),
         ])
         self.data = data_list.get_data
         self.total_pages = ((self.data.row_count - 1).to_f / ROWS_PER_PAGE).ceil
@@ -148,4 +165,46 @@ class StudentListView < FXVerticalFrame
         update_table
     end
 
+    def get_selected_rows()
+        selected_rows = []
+        (0...self.table.numRows).each do |row|
+            selected_rows << row if self.table.rowSelected?(row)
+        end
+        selected_rows
+    end
+
+    def update_button_states()
+        selected_rows = get_selected_rows
+      
+        self.add_button.enabled = true
+        self.update_button.enabled = true
+      
+        case selected_rows.size
+        when 0
+            self.edit_button.enabled = false
+            self.delete_button.enabled = false
+        when 1
+            self.edit_button.enabled = true
+            self.delete_button.enabled = true
+        else
+            self.edit_button.enabled = false
+            self.delete_button.enabled = true
+        end
+    end
+
+    def on_add()
+    
+    end
+  
+    def on_update()
+    
+    end
+  
+    def on_edit()
+    
+    end
+  
+    def on_delete()
+    
+    end
 end
