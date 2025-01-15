@@ -45,13 +45,13 @@ class MainStudent
 
 	def get_contact
 		if(!self.phone.nil?)
-			return "Телефон: #{self.phone}"
+			return "#{self.phone}"
 		end
 		if(!self.email.nil?)
-			return "Почта: #{self.email}"
+			return "#{self.email}"
 		end
 		if(!self.tg.nil?)
-			return "Телеграм: #{self.tg}"
+			return "#{self.tg}"
 		end
 	end
 	

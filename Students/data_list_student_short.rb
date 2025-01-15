@@ -7,7 +7,7 @@ class DataListStudentShort < DataList
 	end
 
 	def get_row(obj)
-		return [obj.surname_inits, obj.git, obj.contact]
+		return [obj.get_fio, obj.git, obj.get_contact]
 	end
 
 end

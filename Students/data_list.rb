@@ -1,7 +1,7 @@
 require_relative 'data_table.rb'
 
 class DataList
-	protected attr_reader :list
+	attr_reader :list
 	protected attr_accessor :selected_elem, :selected_id_arr
 	
 	def initialize(list)
@@ -40,13 +40,12 @@ class DataList
 
 	# Шаблонный метод
 	def get_data()
-		index = 1
 		table = []
-		self.get_selected.each do |number|
-			obj = list[number]
-			row = [index].concat(get_row(obj))
+		table.append(get_names)
+		self.list.each_with_index do |student, index|
+			obj = student
+			row = [index + 1].concat(get_row(obj))
 			table.append(row)
-			index += 1
 		end
 
 		DataTable.new(table)
