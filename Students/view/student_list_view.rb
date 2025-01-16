@@ -1,17 +1,20 @@
 require 'fox16'
-require 'pg'
 require_relative 'data_list.rb'
 require_relative 'data_list_student_short.rb'
 require_relative 'students_list.rb'
 require_relative 'students_list_DB.rb'
-
+require_relative 'student_list_controller.rb'
 include Fox
+
 class StudentListView < FXVerticalFrame
+
+    attr_accessor :controller
 
     ROWS_PER_PAGE = 5
 
     def initialize(parent)
         super(parent, opts: LAYOUT_FILL)
+        self.controller = StudentListController.new(self)
         self.filters = {}
         setup_filtering_area
         setup_table_area
