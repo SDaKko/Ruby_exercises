@@ -1,12 +1,25 @@
 require_relative 'data_table.rb'
 
 class DataList
+	attr_accessor :observers, :count
 	attr_reader :list
 	protected attr_accessor :selected_elem, :selected_id_arr
 	
 	def initialize(list)
 		self.list = list
 		self.selected_id_arr = []
+		self.observers = []
+	end
+
+	def add_observer(observer)
+		self.observers << observer
+	end
+
+	def notify(data)
+		self.observers.each do |observer|
+			observer.set_table_params(data.get_names, self.count)
+			observer.set_table_data(data.get_data)
+		end
 	end
 
 	def list=(list)
