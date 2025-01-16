@@ -27,8 +27,3 @@ class StudentApp < FXMainWindow
     end
 
 end
-
-app = FXApp.new("Students", "Students")
-StudentApp.new(app)
-app.create
-app.run
