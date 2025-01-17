@@ -1,14 +1,10 @@
 require 'fox16'
-require_relative 'data_list.rb'
-require_relative 'data_list_student_short.rb'
-require_relative 'students_list.rb'
-require_relative 'students_list_DB.rb'
 require_relative 'student_list_controller.rb'
 include Fox
 
 class StudentListView < FXVerticalFrame
 
-    attr_accessor :controller, :current_page_label
+    attr_accessor :current_page_label
 
     ROWS_PER_PAGE = 5
 
@@ -113,7 +109,7 @@ class StudentListView < FXVerticalFrame
 
     private
   
-    attr_accessor :table, :total_pages, :page_label, :prev_button, :next_button, :sort_order, :add_button, :update_button, :edit_button, :delete_button, :filters, :selected_rows
+    attr_accessor :table, :total_pages, :page_label, :prev_button, :next_button, :add_button, :update_button, :edit_button, :delete_button, :filters, :selected_rows, :controller
 
     def update_page_label()
         self.page_label.text = "Страница: #{self.current_page_label}/#{self.total_pages}"
@@ -191,6 +187,7 @@ class StudentListView < FXVerticalFrame
         self.filters.each_value do |field|
             field[:combo_box].setCurrentItem(0) if !field[:combo_box].nil?
             field[:text_field].text = ""
+            field[:text_field].enabled = (field[:combo_box].currentItem == 1) if !field[:combo_box].nil?
         end
         self.controller.refresh_data
     end
