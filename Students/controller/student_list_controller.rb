@@ -16,9 +16,9 @@ class StudentListController
 	end
 
 	def refresh_data()
-		self.data = self.student_list.get_k_n_student_short_list(self.view.current_page_label, self.view.class::ROWS_PER_PAGE)
+		self.student_list.get_k_n_student_short_list(self.view.current_page_label, self.view.class::ROWS_PER_PAGE, self.data_list)
 		self.data_list.count = self.student_list.get_student_short_count
-		self.data_list.notify(self.data)
+		self.data_list.notify
 	end
 	
 	def add()
@@ -38,6 +38,6 @@ class StudentListController
 	end
 
 	private
-	attr_accessor :view, :student_list, :data_list, :data, :sort_order
+	attr_accessor :view, :student_list, :data_list
 
 end
