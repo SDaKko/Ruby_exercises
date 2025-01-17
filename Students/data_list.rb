@@ -15,10 +15,10 @@ class DataList
 		self.observers << observer
 	end
 
-	def notify(data)
+	def notify()
 		self.observers.each do |observer|
-			observer.set_table_params(data.get_names, self.count)
-			observer.set_table_data(data.get_data)
+			observer.set_table_params(self.get_names, self.count)
+			observer.set_table_data(self.get_data)
 		end
 	end
 

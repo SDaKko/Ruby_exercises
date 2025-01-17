@@ -42,13 +42,15 @@ class StudentsList
 		selected = selected.map { |student| StudentShort.new(student: student) }
 		if data_list.nil?
 			data_list = DataListStudentShort.new(selected)
+		else
+			data_list.list = selected
 		end
 
 		data_list
 	end
 
-	def sort_by_fio()
-		students_array.sort_by { |student| student.get_fio }
+	def sort_by_fio!()
+		@students_array.sort_by! { |student| student.get_fio }
 	end
 
 	def add_student(student)
